@@ -18,6 +18,8 @@ This project will also include:
 
 This application will consist of two displays. A modal will be displayed to give instructions for the application, and also buttons to navigate between views. There will be a track index, once a track is selected. The track will play and the view will be switched to a visualization of the audio. There will also be a button to navigate back to track index.
 
+![wireframe](./assets/Wireframe.jpeg)
+
 ## Architecture and Technology
 
 This application will be implemented with the following technologies:
