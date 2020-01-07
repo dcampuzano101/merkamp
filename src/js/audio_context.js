@@ -1,6 +1,11 @@
 const THREE = require('three');
 const SimplexNoise = require('simplex-noise');
 
+var green = new THREE.Color('#D9FFA3');
+var purple = new THREE.Color('#7F25D9');
+var burntorange = new THREE.Color('#F2784B');
+var forestGreen = new THREE.Color('#516D73');
+
 const noise = new SimplexNoise();
 
 
@@ -54,7 +59,7 @@ trackThree.connect(gainNodeThree).connect(audioContextThree.destination);
 ////////////////////////////////////////////////////////////////
 
 console.log(analyzerOne);
-
+window.addEventListener('resize', onWindowResize, false);
 
 
 const playButton = document.getElementById('btn-1');
@@ -75,7 +80,6 @@ playButton.addEventListener('click', function() {
         audioElement.play();
         this.dataset.playing = 'true'; 
     } else if (this.dataset.playing === 'true') {
-        debugger;
         audioElement.pause();
         this.dataset.playing = 'false';
     }
@@ -283,10 +287,11 @@ document.body.appendChild(renderer.domElement);
 
 const planeGeometry = new THREE.PlaneGeometry(400, 400, 20, 20);
 const planeMaterial = new THREE.MeshLambertMaterial({
-    color: 0x6904ce,
+    color: 0xffff00,
     side: THREE.DoubleSide,
     wireframe: true
 });
+
 
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 plane.rotation.x = -0.5 * Math.PI;
@@ -298,7 +303,7 @@ plane2.position.set(0, -30, 0);
 
 var geometry = new THREE.IcosahedronGeometry(1, 3);
 var material = new THREE.MeshBasicMaterial({
-    color: 0x6904ce,
+    color: forestGreen,
     wireframe: true
 });
 var sphere = new THREE.Mesh(geometry, material);
@@ -313,8 +318,8 @@ camera.position.z = 5;
 const animate = function () {
     requestAnimationFrame(animate);
 
-    sphere.rotation.x += 0.005;
-    sphere.rotation.y += 0.005;
+    sphere.rotation.x += 0.007;
+    sphere.rotation.y += 0.007;
     renderer.render(scene, camera);
     group.rotation.y += 0.002;
 };
