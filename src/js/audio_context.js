@@ -23,36 +23,38 @@ const gainNodeThree = audioContextThree.createGain();
 
 const analyzerOne = audioContext.createAnalyser();
 analyzerOne.connect(audioContext.destination);
+analyzerOne.fftSize = 512;
+let bufferLength = analyzerOne.frequencyBinCount;
+let dataArray = new Uint8Array(bufferLength);
+analyzerOne.getByteFrequencyData(dataArray);
+
+const analyzerTwo = audioContextTwo.createAnalyser();
+analyzerTwo.connect(audioContextTwo.destination);
+analyzerTwo.fftSize = 512;
+let bufferLength2 = analyzerTwo.frequencyBinCount;
+let dataArray2 = new Uint8Array(bufferLength2);
+analyzerTwo.getByteFrequencyData(dataArray2);
+
+const analyzerThree = audioContextThree.createAnalyser();
+analyzerThree.connect(audioContextThree.destination);
+analyzerThree.fftSize = 512;
+let bufferLength3 = analyzerThree.frequencyBinCount;
+let dataArray3 = new Uint8Array(bufferLength3);
+analyzerThree.getByteFrequencyData(dataArray3);
 
 trackOne.connect(analyzerOne);
 trackOne.connect(gainNode).connect(audioContext.destination);
+
+trackTwo.connect(analyzerTwo);
 trackTwo.connect(gainNodeTwo).connect(audioContextTwo.destination);
+
+trackThree.connect(analyzerThree);
 trackThree.connect(gainNodeThree).connect(audioContextThree.destination);
 
 ////////////////////////////////////////////////////////////////
 
 console.log(analyzerOne);
-analyzerOne.fftSize = 512;
-let bufferLength = analyzerOne.frequencyBinCount;
-let dataArray = new Uint8Array(bufferLength);
 
-analyzerOne.getByteFrequencyData(dataArray);
-//slice arr into 2 halves
-
-// let lowerHalfArr = dataArr.slice(0, (dataArr.length / 2) - 1);
-// let upperHalfArr = dataArr.slice((dataArr.length / 2) - 1, dataArr.length - 1);
-
-// let lowerMax = Math.max(...lowerHalfArr);
-// let lowerAvg = avg(lowerHalfArr);
-// let upperAvg = avg(upperHalfArr);
-
-// let lowerMaxFr = lowerMax / lowerHalfArr.length;
-// let lowerAvgFr = lowerAvg / lowerHalfArr.length;
-// let upperAvgFr = upperAvg / upperHalfArr.length;
-
-
-
-///////////////////////////////////////////////////////////////
 
 
 const playButton = document.getElementById('btn-1');
@@ -64,6 +66,7 @@ const volumeControlTwo = document.getElementById('vol-2');
 const volumeControlThree = document.getElementById('vol-3');
 
 playButton.addEventListener('click', function() {
+    render();
     if (audioContext.state === 'suspended') {
         audioContext.resume();
     }
@@ -74,10 +77,12 @@ playButton.addEventListener('click', function() {
     } else if (this.dataset.playing === 'true') {
         audioElement.pause();
         this.dataset.playing = 'false';
+        sphere.position.set(0, 0, 0);
     }
 }, false);
 
 playButton2.addEventListener('click', function () {
+    render2();
     if (audioContextTwo.state === 'suspended') {
         audioContextTwo.resume();
     }
@@ -92,6 +97,7 @@ playButton2.addEventListener('click', function () {
 }, false);
 
 playButton3.addEventListener('click', function () {
+    render3();
     if (audioContextThree.state === 'suspended') {
         audioContextThree.resume();
     }
@@ -161,10 +167,66 @@ function render() {
 
     makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 0.5), modulate(upperAvgFr, 0, 1, 0, 0.5));
 
-    group.rotation.y += 0.005;
+    group.rotation.y += 0.002;
     renderer.render(scene, camera);
     requestAnimationFrame(render);
 }
+
+function render2() {
+    debugger;
+    analyzerTwo.getByteFrequencyData(dataArray2);
+
+    var lowerHalfArray = dataArray2.slice(0, (dataArray2.length / 2) - 1);
+    var upperHalfArray = dataArray2.slice((dataArray2.length / 2) - 1, dataArray2.length - 1);
+
+    var overallAvg = avg(dataArray2);
+    var lowerMax = Math.max(...lowerHalfArray);
+    var lowerAvg = avg(lowerHalfArray);
+    var upperMax = Math.max(...upperHalfArray);
+    var upperAvg = avg(upperHalfArray);
+
+    var lowerMaxFr = lowerMax / lowerHalfArray.length;
+    var lowerAvgFr = lowerAvg / lowerHalfArray.length;
+    var upperMaxFr = upperMax / upperHalfArray.length;
+    var upperAvgFr = upperAvg / upperHalfArray.length;
+
+    makeRoughGround(plane, modulate(upperAvgFr, 0, 1, 0.5, 2));
+    makeRoughGround(plane2, modulate(lowerMaxFr, 0, 1, 0.5, 2));
+
+    makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 0.5), modulate(upperAvgFr, 0, 1, 0, 0.5));
+
+    group.rotation.y += 0.002;
+    renderer.render(scene, camera);
+    requestAnimationFrame(render2);
+}
+
+function render3() {
+    analyzerThree.getByteFrequencyData(dataArray3);
+
+    var lowerHalfArray = dataArray3.slice(0, (dataArray3.length / 2) - 1);
+    var upperHalfArray = dataArray3.slice((dataArray3.length / 2) - 1, dataArray3.length - 1);
+
+    var overallAvg = avg(dataArray3);
+    var lowerMax = Math.max(...lowerHalfArray);
+    var lowerAvg = avg(lowerHalfArray);
+    var upperMax = Math.max(...upperHalfArray);
+    var upperAvg = avg(upperHalfArray);
+
+    var lowerMaxFr = lowerMax / lowerHalfArray.length;
+    var lowerAvgFr = lowerAvg / lowerHalfArray.length;
+    var upperMaxFr = upperMax / upperHalfArray.length;
+    var upperAvgFr = upperAvg / upperHalfArray.length;
+
+    makeRoughGround(plane, modulate(upperAvgFr, 0, 1, 0.5, 2));
+    makeRoughGround(plane2, modulate(lowerMaxFr, 0, 1, 0.5, 2));
+
+    makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 0.5), modulate(upperAvgFr, 0, 1, 0, 0.5));
+
+    group.rotation.y += 0.002;
+    renderer.render(scene, camera);
+    requestAnimationFrame(render3);
+}
+
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -271,4 +333,6 @@ animate();
 
 
 
-render();
+// render();
+// render2();
+// render3();
