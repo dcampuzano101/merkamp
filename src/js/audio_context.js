@@ -1,4 +1,8 @@
-var THREE = require('three');
+const THREE = require('three');
+const SimplexNoise = require('simplex-noise');
+
+const noise = new SimplexNoise();
+
 
 const audioContext = new AudioContext();
 const audioContextTwo = new AudioContext();
@@ -30,21 +34,21 @@ trackThree.connect(gainNodeThree).connect(audioContextThree.destination);
 console.log(analyzerOne);
 analyzerOne.fftSize = 512;
 let bufferLength = analyzerOne.frequencyBinCount;
-let dataArr = new Uint8Array(bufferLength);
+let dataArray = new Uint8Array(bufferLength);
 
-analyzerOne.getByteFrequencyData(dataArr);
+analyzerOne.getByteFrequencyData(dataArray);
 //slice arr into 2 halves
 
-let lowerHalfArr = dataArr.slice(0, (dataArr.length / 2) - 1);
-let upperHalfArr = dataArr.slice((dataArr.length / 2) - 1, dataArr.length - 1);
+// let lowerHalfArr = dataArr.slice(0, (dataArr.length / 2) - 1);
+// let upperHalfArr = dataArr.slice((dataArr.length / 2) - 1, dataArr.length - 1);
 
-let lowerMax = Math.max(...lowerHalfArr);
-let lowerAvg = avg(lowerHalfArr);
-let upperAvg = avg(upperHalfArr);
+// let lowerMax = Math.max(...lowerHalfArr);
+// let lowerAvg = avg(lowerHalfArr);
+// let upperAvg = avg(upperHalfArr);
 
-let lowerMaxFr = lowerMax / lowerHalfArr.length;
-let lowerAvgFr = lowerAvg / lowerHalfArr.length;
-let upperAvgFr = upperAvg / upperHalfArr.length;
+// let lowerMaxFr = lowerMax / lowerHalfArr.length;
+// let lowerAvgFr = lowerAvg / lowerHalfArr.length;
+// let upperAvgFr = upperAvg / upperHalfArr.length;
 
 
 
@@ -136,10 +140,67 @@ function avg(arr) {
 }
 
 function render() {
+    analyzerOne.getByteFrequencyData(dataArray);
+
+    var lowerHalfArray = dataArray.slice(0, (dataArray.length / 2) - 1);
+    var upperHalfArray = dataArray.slice((dataArray.length / 2) - 1, dataArray.length - 1);
+
+    var overallAvg = avg(dataArray);
+    var lowerMax = Math.max(...lowerHalfArray);
+    var lowerAvg = avg(lowerHalfArray);
+    var upperMax = Math.max(...upperHalfArray);
+    var upperAvg = avg(upperHalfArray);
+
+    var lowerMaxFr = lowerMax / lowerHalfArray.length;
+    var lowerAvgFr = lowerAvg / lowerHalfArray.length;
+    var upperMaxFr = upperMax / upperHalfArray.length;
+    var upperAvgFr = upperAvg / upperHalfArray.length;
+
+    makeRoughGround(plane, modulate(upperAvgFr, 0, 1, 0.5, 4));
+    makeRoughGround(plane2, modulate(lowerMaxFr, 0, 1, 0.5, 4));
+
+    makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 8), modulate(upperAvgFr, 0, 1, 0, 4));
+
     group.rotation.y += 0.005;
     renderer.render(scene, camera);
     requestAnimationFrame(render);
 }
+
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function makeRoughBall(mesh, bassFr, treFr) {
+    mesh.geometry.vertices.forEach(function (vertex, i) {
+        var offset = mesh.geometry.parameters.radius;
+        var amp = 7;
+        var time = window.performance.now();
+        vertex.normalize();
+        var rf = 0.00001;
+        var distance = (offset + bassFr) + noise.noise3D(vertex.x + time * rf * 7, vertex.y + time * rf * 8, vertex.z + time * rf * 9) * amp * treFr;
+        vertex.multiplyScalar(distance);
+    });
+    mesh.geometry.verticesNeedUpdate = true;
+    mesh.geometry.normalsNeedUpdate = true;
+    mesh.geometry.computeVertexNormals();
+    mesh.geometry.computeFaceNormals();
+}
+
+function makeRoughGround(mesh, distortionFr) {
+    mesh.geometry.vertices.forEach(function (vertex, i) {
+        var amp = 2;
+        var time = Date.now();
+        var distance = (noise.noise2D(vertex.x + time * 0.0003, vertex.y + time * 0.0001) + 0) * distortionFr * amp;
+        vertex.z = distance;
+    });
+    mesh.geometry.verticesNeedUpdate = true;
+    mesh.geometry.normalsNeedUpdate = true;
+    mesh.geometry.computeVertexNormals();
+    mesh.geometry.computeFaceNormals();
+}
+
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -188,30 +249,23 @@ group.add(plane2);
 group.add(sphere);
 scene.add(group);
 camera.position.z = 5;
-console.log(dataArr);
 const animate = function () {
     requestAnimationFrame(animate);
 
     sphere.rotation.x += 0.01;
     sphere.rotation.y += 0.01;
-
-    // analyzerOne.getByteFrequencyData(dataArr);
-    // //slice arr into 2 halves
-
-    // let lowerHalfArr = dataArr.slice(0, (dataArr.length / 2) - 1);
-    // let upperHalfArr = dataArr.slice((dataArr.length / 2) - 1, dataArr.length - 1);
-
-    // let lowerMax = Math.max(...lowerHalfArr);
-    // let lowerAvg = avg(lowerHalfArr);
-    // let upperAvg = avg(upperHalfArr);
-
-    // let lowerMaxFr = lowerMax / lowerHalfArr.length;
-    // let lowerAvgFr = lowerAvg / lowerHalfArr.length;
-    // let upperAvgFr = upperAvg / upperHalfArr.length;
-
-
     renderer.render(scene, camera);
 };
+
+function fractionate(val, minVal, maxVal) {
+    return (val - minVal) / (maxVal - minVal);
+}
+
+function modulate(val, minVal, maxVal, outMin, outMax) {
+    var fr = fractionate(val, minVal, maxVal);
+    var delta = outMax - outMin;
+    return outMin + (fr * delta);
+}
 
 animate();
 
