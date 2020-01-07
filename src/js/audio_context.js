@@ -75,12 +75,11 @@ playButton.addEventListener('click', function() {
         audioElement.play();
         this.dataset.playing = 'true'; 
     } else if (this.dataset.playing === 'true') {
+        debugger;
         audioElement.pause();
         this.dataset.playing = 'false';
-        sphere.position.set(0, 0, 0);
     }
 }, false);
-
 playButton2.addEventListener('click', function () {
     render2();
     if (audioContextTwo.state === 'suspended') {
@@ -167,7 +166,7 @@ function render() {
 
     makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 0.5), modulate(upperAvgFr, 0, 1, 0, 0.5));
 
-    group.rotation.y += 0.002;
+    // group.rotation.y += 0.000;
     renderer.render(scene, camera);
     requestAnimationFrame(render);
 }
@@ -195,7 +194,7 @@ function render2() {
 
     makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 0.5), modulate(upperAvgFr, 0, 1, 0, 0.5));
 
-    group.rotation.y += 0.002;
+    // group.rotation.y += 0.002;
     renderer.render(scene, camera);
     requestAnimationFrame(render2);
 }
@@ -222,7 +221,7 @@ function render3() {
 
     makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 0.5), modulate(upperAvgFr, 0, 1, 0, 0.5));
 
-    group.rotation.y += 0.002;
+    // group.rotation.y += 0.002;
     renderer.render(scene, camera);
     requestAnimationFrame(render3);
 }
@@ -282,7 +281,7 @@ const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const planeGeometry = new THREE.PlaneGeometry(800, 800, 20, 20);
+const planeGeometry = new THREE.PlaneGeometry(400, 400, 20, 20);
 const planeMaterial = new THREE.MeshLambertMaterial({
     color: 0x6904ce,
     side: THREE.DoubleSide,
@@ -297,7 +296,7 @@ const plane2 = new THREE.Mesh(planeGeometry, planeMaterial);
 plane2.rotation.x = -0.5 * Math.PI;
 plane2.position.set(0, -30, 0);
 
-var geometry = new THREE.SphereGeometry(1, 12, 12);
+var geometry = new THREE.IcosahedronGeometry(1, 3);
 var material = new THREE.MeshBasicMaterial({
     color: 0x6904ce,
     wireframe: true
@@ -314,9 +313,10 @@ camera.position.z = 5;
 const animate = function () {
     requestAnimationFrame(animate);
 
-    sphere.rotation.x += 0.01;
-    sphere.rotation.y += 0.01;
+    sphere.rotation.x += 0.005;
+    sphere.rotation.y += 0.005;
     renderer.render(scene, camera);
+    group.rotation.y += 0.002;
 };
 
 function fractionate(val, minVal, maxVal) {
