@@ -156,10 +156,10 @@ function render() {
     var upperMaxFr = upperMax / upperHalfArray.length;
     var upperAvgFr = upperAvg / upperHalfArray.length;
 
-    makeRoughGround(plane, modulate(upperAvgFr, 0, 1, 0.5, 4));
-    makeRoughGround(plane2, modulate(lowerMaxFr, 0, 1, 0.5, 4));
+    makeRoughGround(plane, modulate(upperAvgFr, 0, 1, 0.5, 2));
+    makeRoughGround(plane2, modulate(lowerMaxFr, 0, 1, 0.5, 2));
 
-    makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 8), modulate(upperAvgFr, 0, 1, 0, 4));
+    makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 0.5), modulate(upperAvgFr, 0, 1, 0, 0.5));
 
     group.rotation.y += 0.005;
     renderer.render(scene, camera);
