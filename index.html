@@ -10,23 +10,36 @@
   </head>
 
   <body>
-    <div class="track-buttons-container">
-      <audio id="ny-state" src="./src/assets/02 Nas - N.Y. State Of Mind.mp3" type="audio/mpeg"></audio>
-      <audio id="world" src="./src/assets/04 Nas - The World Is Yours.mp3" type="audio/mpeg"></audio>
-      <audio id="hard-to-tell" src="./src/assets/10 Nas - It Ain't Hard To Tell.mp3" type="audio/mpeg"></audio>
-      <button id="btn-1" data-playing="false" role="switch" aria-checked="false">
-        <span>play/pause</span>
-      </button>
-      <input type="range" id="vol-1" min="0" max="2" value="1" step="0.01">
-      <button id="btn-2" data-playing="false" role="switch" aria-checked="false">
-        <span>play/pause</span>
-      </button>
-      <input type="range" id="vol-2" min="0" max="2" value="1" step="0.01">
-      <button id="btn-3" data-playing="false" role="switch" aria-checked="false">
-        <span>play/pause</span>
-      </button>
-      <input type="range" id="vol-3" min="0" max="2" value="1" step="0.01">
-      <script src="./dist/main.js"></script>
+    <div class="container" id="container">
+      <div class="track-wrapper">
+        <div class="track-buttons-container">
+          <div class="track">
+            <h3>Track-1</h3>
+            <audio id="ny-state" src="./src/assets/02 Nas - N.Y. State Of Mind.mp3" type="audio/mpeg"></audio>
+            <button id="btn-1" data-playing="false" role="switch" aria-checked="false">
+              <span>play/pause</span>
+            </button>
+            <input type="range" id="vol-1" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>Track-2</h3>
+            <audio id="world" src="./src/assets/04 Nas - The World Is Yours.mp3" type="audio/mpeg"></audio>
+            <button id="btn-2" data-playing="false" role="switch" aria-checked="false">
+              <span>play/pause</span>
+            </button>
+            <input type="range" id="vol-2" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>Track-3</h3>
+            <audio id="hard-to-tell" src="./src/assets/10 Nas - It Ain't Hard To Tell.mp3" type="audio/mpeg"></audio>
+            <button id="btn-3" data-playing="false" role="switch" aria-checked="false">
+              <span>play/pause</span>
+            </button>
+            <input type="range" id="vol-3" min="0" max="2" value="1" step="0.01">
+          </div>
+        </div>
+      </div>
     </div>
+    <script src="./dist/main.js"></script>
   </body>
 </html>

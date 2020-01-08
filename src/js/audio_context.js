@@ -8,7 +8,6 @@ var forestGreen = new THREE.Color('#516D73');
 
 const noise = new SimplexNoise();
 
-
 const audioContext = new AudioContext();
 const audioContextTwo = new AudioContext();
 const audioContextThree = new AudioContext();
@@ -47,6 +46,8 @@ let bufferLength3 = analyzerThree.frequencyBinCount;
 let dataArray3 = new Uint8Array(bufferLength3);
 analyzerThree.getByteFrequencyData(dataArray3);
 
+let analyzer = analyzerOne, dataArr = dataArray;
+
 trackOne.connect(analyzerOne);
 trackOne.connect(gainNode).connect(audioContext.destination);
 
@@ -56,9 +57,6 @@ trackTwo.connect(gainNodeTwo).connect(audioContextTwo.destination);
 trackThree.connect(analyzerThree);
 trackThree.connect(gainNodeThree).connect(audioContextThree.destination);
 
-////////////////////////////////////////////////////////////////
-
-console.log(analyzerOne);
 window.addEventListener('resize', onWindowResize, false);
 
 
@@ -71,21 +69,25 @@ const volumeControlTwo = document.getElementById('vol-2');
 const volumeControlThree = document.getElementById('vol-3');
 
 playButton.addEventListener('click', function() {
-    render();
+    analyzer = analyzerOne;
+    dataArr = dataArray;
     if (audioContext.state === 'suspended') {
         audioContext.resume();
     }
 
     if (this.dataset.playing === 'false') {
         audioElement.play();
-        this.dataset.playing = 'true'; 
+        this.dataset.playing = 'true';
     } else if (this.dataset.playing === 'true') {
         audioElement.pause();
         this.dataset.playing = 'false';
     }
 }, false);
+
 playButton2.addEventListener('click', function () {
-    render2();
+
+    analyzer = analyzerTwo;
+    dataArr = dataArray2;
     if (audioContextTwo.state === 'suspended') {
         audioContextTwo.resume();
     }
@@ -100,7 +102,8 @@ playButton2.addEventListener('click', function () {
 }, false);
 
 playButton3.addEventListener('click', function () {
-    render3();
+    analyzer = analyzerThree;
+    dataArr = dataArray3;
     if (audioContextThree.state === 'suspended') {
         audioContextThree.resume();
     }
@@ -144,91 +147,36 @@ function avg(arr) {
     arr.forEach(num => {
         sum += num;
     });
-
     return (sum / arr.length);
 }
 
 function render() {
-    analyzerOne.getByteFrequencyData(dataArray);
+    analyzer.getByteFrequencyData(dataArr);
 
-    var lowerHalfArray = dataArray.slice(0, (dataArray.length / 2) - 1);
-    var upperHalfArray = dataArray.slice((dataArray.length / 2) - 1, dataArray.length - 1);
+    var lowerHalfArray = dataArr.slice(0, (dataArr.length / 2) - 1);
+    var upperHalfArray = dataArr.slice((dataArr.length / 2) - 1, dataArr.length - 1);
 
-    var overallAvg = avg(dataArray);
+    var overallAvg = avg(dataArr);
     var lowerMax = Math.max(...lowerHalfArray);
     var lowerAvg = avg(lowerHalfArray);
     var upperMax = Math.max(...upperHalfArray);
     var upperAvg = avg(upperHalfArray);
 
     var lowerMaxFr = lowerMax / lowerHalfArray.length;
-    var lowerAvgFr = lowerAvg / lowerHalfArray.length;
-    var upperMaxFr = upperMax / upperHalfArray.length;
+    // var lowerAvgFr = lowerAvg / lowerHalfArray.length;
+    // var upperMaxFr = upperMax / upperHalfArray.length;
     var upperAvgFr = upperAvg / upperHalfArray.length;
 
     makeRoughGround(plane, modulate(upperAvgFr, 0, 1, 0.5, 2));
     makeRoughGround(plane2, modulate(lowerMaxFr, 0, 1, 0.5, 2));
 
-    makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 0.5), modulate(upperAvgFr, 0, 1, 0, 0.5));
-
+    // makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 0.5), modulate(upperAvgFr, 0, 1, 0, 0.5));
+    makeRoughBall(torus, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 0.5), modulate(upperAvgFr, 0, 1, 0, 0.5));
     // group.rotation.y += 0.000;
     renderer.render(scene, camera);
     requestAnimationFrame(render);
 }
 
-function render2() {
-    debugger;
-    analyzerTwo.getByteFrequencyData(dataArray2);
-
-    var lowerHalfArray = dataArray2.slice(0, (dataArray2.length / 2) - 1);
-    var upperHalfArray = dataArray2.slice((dataArray2.length / 2) - 1, dataArray2.length - 1);
-
-    var overallAvg = avg(dataArray2);
-    var lowerMax = Math.max(...lowerHalfArray);
-    var lowerAvg = avg(lowerHalfArray);
-    var upperMax = Math.max(...upperHalfArray);
-    var upperAvg = avg(upperHalfArray);
-
-    var lowerMaxFr = lowerMax / lowerHalfArray.length;
-    var lowerAvgFr = lowerAvg / lowerHalfArray.length;
-    var upperMaxFr = upperMax / upperHalfArray.length;
-    var upperAvgFr = upperAvg / upperHalfArray.length;
-
-    makeRoughGround(plane, modulate(upperAvgFr, 0, 1, 0.5, 2));
-    makeRoughGround(plane2, modulate(lowerMaxFr, 0, 1, 0.5, 2));
-
-    makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 0.5), modulate(upperAvgFr, 0, 1, 0, 0.5));
-
-    // group.rotation.y += 0.002;
-    renderer.render(scene, camera);
-    requestAnimationFrame(render2);
-}
-
-function render3() {
-    analyzerThree.getByteFrequencyData(dataArray3);
-
-    var lowerHalfArray = dataArray3.slice(0, (dataArray3.length / 2) - 1);
-    var upperHalfArray = dataArray3.slice((dataArray3.length / 2) - 1, dataArray3.length - 1);
-
-    var overallAvg = avg(dataArray3);
-    var lowerMax = Math.max(...lowerHalfArray);
-    var lowerAvg = avg(lowerHalfArray);
-    var upperMax = Math.max(...upperHalfArray);
-    var upperAvg = avg(upperHalfArray);
-
-    var lowerMaxFr = lowerMax / lowerHalfArray.length;
-    var lowerAvgFr = lowerAvg / lowerHalfArray.length;
-    var upperMaxFr = upperMax / upperHalfArray.length;
-    var upperAvgFr = upperAvg / upperHalfArray.length;
-
-    makeRoughGround(plane, modulate(upperAvgFr, 0, 1, 0.5, 2));
-    makeRoughGround(plane2, modulate(lowerMaxFr, 0, 1, 0.5, 2));
-
-    makeRoughBall(sphere, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 0.5), modulate(upperAvgFr, 0, 1, 0, 0.5));
-
-    // group.rotation.y += 0.002;
-    renderer.render(scene, camera);
-    requestAnimationFrame(render3);
-}
 
 
 function onWindowResize() {
@@ -267,6 +215,7 @@ function makeRoughGround(mesh, distortionFr) {
 }
 
 
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
     75,
@@ -283,7 +232,9 @@ scene.add(camera);
 
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+// document.body.appendChild(renderer.domElement);
+document.getElementById("container").appendChild(renderer.domElement);
+renderer.domElement.className = "canvas-container";
 
 const planeGeometry = new THREE.PlaneGeometry(400, 400, 20, 20);
 const planeMaterial = new THREE.MeshLambertMaterial({
@@ -306,20 +257,54 @@ var material = new THREE.MeshBasicMaterial({
     color: forestGreen,
     wireframe: true
 });
-var sphere = new THREE.Mesh(geometry, material);
+// var sphere = new THREE.Mesh(geometry, material);
+// sphere.position.set(0, 0, 0);
 
-sphere.position.set(0, 0, 0);
+var geometry = new THREE.TorusGeometry(1.5, 1, 6, 100);
+var material = new THREE.MeshBasicMaterial({ 
+    color: forestGreen,
+    wireframe: true
+});
+var torus = new THREE.Mesh(geometry, material);
+torus.position.set(0, 0, 0);
+geomClone = torus.geometry.clone();
+console.log(geomClone);
+group.add(torus);
+
+// var geometry2 = new THREE.TorusGeometry(3, 1, 6, 100);
+// var material2 = new THREE.MeshBasicMaterial({
+//     color: 0xffff00,
+//     wireframe: true
+// });
+// var torus2 = new THREE.Mesh(geometry2, material2);
+// torus2.position.set(0, 0, 0);
+// group.add(torus2);
+function clearGroup() {
+    var to_remove = [];
+
+    group.traverse(function (child) {
+        if (child instanceof THREE.Mesh && !child.userData.keepMe === true) {
+            to_remove.push(child);
+        }
+    });
+
+    for (var i = 0; i < to_remove.length; i++) {
+        group.remove(to_remove[i]);
+    }
+}
+
+
 
 group.add(plane);
 group.add(plane2);
-group.add(sphere);
+// group.add(sphere);
 scene.add(group);
 camera.position.z = 5;
 const animate = function () {
     requestAnimationFrame(animate);
 
-    sphere.rotation.x += 0.007;
-    sphere.rotation.y += 0.007;
+    torus.rotation.x += 0.007;
+    torus.rotation.y += 0.007;
     renderer.render(scene, camera);
     group.rotation.y += 0.002;
 };
@@ -338,6 +323,6 @@ animate();
 
 
 
-// render();
+render();
 // render2();
 // render3();
