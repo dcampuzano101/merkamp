@@ -238,15 +238,17 @@ renderer.domElement.className = "canvas-container";
 
 const planeGeometry = new THREE.PlaneGeometry(400, 400, 20, 20);
 const planeMaterial = new THREE.MeshLambertMaterial({
-    color: 0xffff00,
+    color: forestGreen,
     side: THREE.DoubleSide,
     wireframe: true
 });
 
 
+
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 plane.rotation.x = -0.5 * Math.PI;
 plane.position.set(0, 30, 0);
+
 
 const plane2 = new THREE.Mesh(planeGeometry, planeMaterial);
 plane2.rotation.x = -0.5 * Math.PI;

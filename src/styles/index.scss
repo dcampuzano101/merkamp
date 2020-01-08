@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 input[type=range] {
   -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
   width: 100%; /* Specific width is required for Firefox. */
@@ -24,8 +28,8 @@ input[type=range]::-ms-track {
 
 input[type=range] {
   -webkit-appearance: none;
-  margin: 18px 0;
-  width: 100%;
+  margin: 16px 0 25px 0;
+  width: 150px;
 }
 input[type=range]:focus {
   outline: none;
@@ -35,7 +39,7 @@ input[type=range]::-webkit-slider-runnable-track {
   height: 5px;
   cursor: pointer;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  background: #3071a9;
+  background: #F2BC57;
   border-radius: 1.3px;
   border: 0.2px solid #010101;
 }
@@ -65,7 +69,7 @@ canvas {
 }
 
 .track-buttons-container {
-  width: 636px;
+  width: 800px;
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
@@ -74,11 +78,13 @@ canvas {
 .track-wrapper {
     position: absolute;
     width: 800px;
-    bottom: 50px;
-    height: 100px;
-    background-color: yellow;
+    bottom: 10px;
+    height: 140px;
+    background-color: #516D73;
     display: flex;
     align-items: center;
+    opacity: 0.8;
+    border-radius: 5px;
 
 }
 
@@ -93,16 +99,38 @@ button, input {
 .track {
   padding: 0 10px;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 h3 { 
-  text-align: center; 
+  text-align: center;
+  font-family: 'Courier Prime', monospace;
+
 }
 
 button {
   width: 100px;
   display: block;
   margin: 0 auto;
+  height: 30px;
+  border-radius: 5px;
+  outline: none;
+  padding: 0;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  cursor: pointer;
 }
 
+button:hover {
+  background-color: #F2E8DC
+}
+
+button img {
+  position: relative;
+  top: -3px;
+  filter: invert(87%) sepia(90%) saturate(2249%) hue-rotate(314deg) brightness(99%) contrast(92%);
+
+}
 
