@@ -273,6 +273,9 @@ geomClone = torus.geometry.clone();
 console.log(geomClone);
 group.add(torus);
 
+var light = new THREE.AmbientLight(purple); // soft white light
+group.add(light);
+
 // var geometry2 = new THREE.TorusGeometry(3, 1, 6, 100);
 // var material2 = new THREE.MeshBasicMaterial({
 //     color: 0xffff00,
