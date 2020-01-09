@@ -12,7 +12,36 @@
 
   <body>
     <div class="container" id="container">
-      <div class="track-wrapper">
+      <button id="modal-btn" class="modal-button">
+        <h3>directions</h3>
+      </button>
+      <div class="directions-modal" id="directions-modal">
+        <div class="directions-modal-content">
+          <span id="directions-close">&times;</span>
+          <button id="love-nas"><h3>love nas</h3></button>
+          <button id="hate-nas"><h3>hate nas</h3></button>
+        </div>
+      </div>
+
+      <div class="love-nas-modal" id="love-nas-modal">
+        <div class="love-nas-content">
+          <span id="close-love-nas">&times;</span>
+            <h3>choose a track sit back enjoy</h3>
+        </div>
+      </div>
+
+      <div class="hate-nas-modal" id="hate-nas-modal">
+        <div class="hate-nas-content">
+          <span id="close-hate-nas">&times;</span>
+          <h3>click on nas sux, upload your own track, enjoy</h3>
+        </div>
+      </div>
+      
+      <label for="thefile" class="file"> <h3>nas sux - upload</h3>
+        <input type="file" id="thefile" accept="audio/*" />
+        <audio id="audio"></audio>
+      </label>
+      <div class="track-wrapper" id="nas-tracks">
         <div class="track-buttons-container">
           <div class="track">
             <h3>N.Y State of Mind</h3>
@@ -37,6 +66,14 @@
               <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
             </button>
             <input type="range" id="vol-3" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>User Input</h3>
+            <audio id="thefile" src="./src/assets/10 Nas - It Ain't Hard To Tell.mp3" type="audio/mpeg"></audio>
+            <button id="btn-4" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="vol-4" min="0" max="2" value="1" step="0.01">
           </div>
         </div>
       </div>

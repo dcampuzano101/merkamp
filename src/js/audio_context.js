@@ -11,19 +11,41 @@ const noise = new SimplexNoise();
 const audioContext = new AudioContext();
 const audioContextTwo = new AudioContext();
 const audioContextThree = new AudioContext();
-
+const audioContextFour = new AudioContext();
 
 const audioElement = document.getElementById('ny-state');
 const audioElementTwo = document.getElementById('world');
 const audioElementThree = document.getElementById('hard-to-tell');
+const audioElementFour = document.getElementById('audio');
+
+
+
+const audioElementFile = document.getElementById("thefile");
+const fileLabel = document.querySelector("label.file");
+
+audioElementFile.onchange = function () {
+    fileLabel.classList.add('normal');
+    audio.classList.add('active');
+    var files = this.files;
+
+    audioElementFour.src = URL.createObjectURL(files[0]);    
+    audio.load();
+
+    
+    // audio.play();
+    // play();
+}
+
 
 const trackOne = audioContext.createMediaElementSource(audioElement);
 const trackTwo = audioContextTwo.createMediaElementSource(audioElementTwo);
 const trackThree = audioContextThree.createMediaElementSource(audioElementThree);
+const trackFour = audioContextFour.createMediaElementSource(audioElementFour);
 
 const gainNode = audioContext.createGain();
 const gainNodeTwo = audioContextTwo.createGain();
 const gainNodeThree = audioContextThree.createGain();
+const gainNodeFour = audioContextFour.createGain();
 
 const analyzerOne = audioContext.createAnalyser();
 analyzerOne.connect(audioContext.destination);
@@ -46,6 +68,14 @@ let bufferLength3 = analyzerThree.frequencyBinCount;
 let dataArray3 = new Uint8Array(bufferLength3);
 analyzerThree.getByteFrequencyData(dataArray3);
 
+const analyzerFour = audioContextFour.createAnalyser();
+analyzerFour.connect(audioContextFour.destination);
+analyzerFour.fftSize = 512;
+let bufferLength4 = analyzerFour.frequencyBinCount;
+let dataArray4 = new Uint8Array(bufferLength4);
+analyzerFour.getByteFrequencyData(dataArray4);
+
+
 let analyzer = analyzerOne, dataArr = dataArray;
 
 trackOne.connect(analyzerOne);
@@ -57,16 +87,21 @@ trackTwo.connect(gainNodeTwo).connect(audioContextTwo.destination);
 trackThree.connect(analyzerThree);
 trackThree.connect(gainNodeThree).connect(audioContextThree.destination);
 
+trackFour.connect(analyzerFour);
+trackFour.connect(gainNodeFour).connect(audioContextFour.destination);
+
 window.addEventListener('resize', onWindowResize, false);
 
 
 const playButton = document.getElementById('btn-1');
 const playButton2 = document.getElementById('btn-2');
 const playButton3 = document.getElementById('btn-3');
+const playButton4 = document.getElementById('btn-4');
 
 const volumeControl = document.getElementById('vol-1');
 const volumeControlTwo = document.getElementById('vol-2');
 const volumeControlThree = document.getElementById('vol-3');
+const volumeControlFour = document.getElementById('vol-4');
 
 playButton.addEventListener('click', function() {
     analyzer = analyzerOne;
@@ -117,6 +152,22 @@ playButton3.addEventListener('click', function () {
     }
 }, false);
 
+playButton4.addEventListener('click', function () {
+    analyzer = analyzerFour;
+    dataArr = dataArray4;
+    if (audioContextFour.state === 'suspended') {
+        audioContextFour.resume();
+    }
+
+    if (this.dataset.playing === 'false') {
+        audioElementFour.play();
+        this.dataset.playing = 'true';
+    } else if (this.dataset.playing === 'true') {
+        audioElementFour.pause();
+        this.dataset.playing = 'false';
+    }
+}, false);
+
 audioElement.addEventListener('ended', () => {
     playButton.dataset.playing = 'false';
 }, false);
@@ -129,6 +180,10 @@ audioElement.addEventListener('ended', () => {
     playButton3.dataset.playing = 'false';
 }, false);
 
+audioElement.addEventListener('ended', () => {
+    playButton4.dataset.playing = 'false';
+}, false);
+
 volumeControl.addEventListener('input', function() {
     gainNode.gain.value = this.value;
 });
@@ -139,6 +194,10 @@ volumeControlTwo.addEventListener('input', function () {
 
 volumeControlThree.addEventListener('input', function () {
     gainNodeThree.gain.value = this.value;
+});
+
+volumeControlFour.addEventListener('input', function () {
+    gainNodeFour.gain.value = this.value;
 });
 
 function avg(arr) {

@@ -62,6 +62,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 .container {
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 canvas {
@@ -134,3 +135,114 @@ button img {
 
 }
 
+label {
+  width: 150px;
+  height: 30px;
+  border-radius: 5px;
+  outline: none;
+  padding: 0;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  cursor: pointer;
+  position: absolute;
+  align-self: center;
+  background-color: white;
+  opacity: 0.8;
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  right: 20px;  
+}
+
+#thefile{
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: 1;
+}
+
+button:hover {
+  background-color: #F2E8DC
+}
+
+label h3 {
+  margin: 0;
+  width: 100%;
+}
+
+#modal-btn {
+  top: 20px;
+  left: 20px;
+  position: absolute;
+}
+
+.modal-button {
+    width: 150px;
+  height: 30px;
+  border-radius: 5px;
+  outline: none;
+  padding: 0;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  cursor: pointer;
+  position: absolute;
+  align-self: center;
+  background-color: white;
+  opacity: 0.8;
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  position: absolute;
+}
+
+button h3 {
+  margin: 0;
+  width: 100%;
+}
+
+.directions-modal {
+  width: 400px;
+  height: 400px;
+  background-color: yellow;
+  border-radius: 5px;
+  display: none;
+  position: absolute;
+}
+
+#directions-close:hover {
+  cursor: pointer;
+}
+
+.love-nas-modal {
+  width: 200px;
+  height: 200px;
+  background-color: red;
+  border-radius: 5px;
+  display: none;
+  position: absolute;
+}
+
+#close-love-nas:hover {
+  cursor: pointer;
+}
+
+.hate-nas-modal {
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+  border-radius: 5px;
+  display: none;
+  position: absolute;
+}
+
+#close-hate-nas:hover {
+  cursor: pointer;
+}
