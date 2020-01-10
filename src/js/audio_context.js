@@ -18,23 +18,26 @@ const audioElementTwo = document.getElementById('world');
 const audioElementThree = document.getElementById('hard-to-tell');
 const audioElementFour = document.getElementById('audio');
 
+const userTrack = document.getElementById('user-tracks');
 
 
 const audioElementFile = document.getElementById("thefile");
 const fileLabel = document.querySelector("label.file");
 
 audioElementFile.onchange = function () {
+    userTrack.style.display = 'flex';
     fileLabel.classList.add('normal');
     audio.classList.add('active');
     var files = this.files;
-
-    audioElementFour.src = URL.createObjectURL(files[0]);    
-    audio.load();
-
-    
+    console.log(files);
+    audioElementFour.src = URL.createObjectURL(files[0]);
+    console.log(audioElementFour.src);    
+    // audio.load();
     // audio.play();
     // play();
-}
+};
+
+
 
 
 const trackOne = audioContext.createMediaElementSource(audioElement);

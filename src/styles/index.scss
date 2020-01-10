@@ -78,14 +78,15 @@ canvas {
 
 .track-wrapper {
     position: absolute;
-    width: 800px;
-    bottom: 10px;
-    height: 140px;
+    width: 700px;
+    bottom: 20px;
+    height: 100px;
     background-color: #516D73;
     display: flex;
     align-items: center;
     opacity: 0.8;
     border-radius: 5px;
+
 
 }
 
@@ -108,6 +109,8 @@ button, input {
 h3 { 
   text-align: center;
   font-family: 'Courier Prime', monospace;
+  font-size: 14px;
+  font-weight: 600;
 
 }
 
@@ -115,7 +118,7 @@ button {
   width: 100px;
   display: block;
   margin: 0 auto;
-  height: 30px;
+  height: 26px;
   border-radius: 5px;
   outline: none;
   padding: 0;
@@ -130,7 +133,7 @@ button:hover {
 
 button img {
   position: relative;
-  top: -3px;
+  top: -5px;
   filter: invert(87%) sepia(90%) saturate(2249%) hue-rotate(314deg) brightness(99%) contrast(92%);
 
 }
@@ -164,7 +167,7 @@ label {
 	opacity: 0;
 	overflow: hidden;
 	position: absolute;
-	z-index: 1;
+	z-index: 3;
 }
 
 button:hover {
@@ -183,7 +186,7 @@ label h3 {
 }
 
 .modal-button {
-    width: 150px;
+  width: 150px;
   height: 30px;
   border-radius: 5px;
   outline: none;
@@ -245,4 +248,41 @@ button h3 {
 
 #close-hate-nas:hover {
   cursor: pointer;
+}
+
+.user-wrapper {
+    position: absolute;
+    width: 200px;
+    justify-content: center;
+    top: 10px;
+    height: 140px;
+    background-color: #516D73;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+    border-radius: 5px;
+    display: none;
+}
+
+.user-listing {
+  display: grid;
+}
+
+button, input {
+  width: 100px;
+}
+
+.user-track {
+  padding: 0 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.user-track-buttons-container {
+  width: 800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
 }

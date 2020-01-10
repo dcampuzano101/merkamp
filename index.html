@@ -12,6 +12,23 @@
 
   <body>
     <div class="container" id="container">
+      <label for="thefile" id="nas-sux-btn" class="file">
+        <h3>nas sux - upload</h3>
+        <input type="file" id="thefile" accept="audio/*" />
+        <audio id="audio"></audio>
+      </label>
+      <div class="user-wrapper" id="user-tracks">
+        <div class="user-track-buttons-container">
+          <div class="user-track">
+            <h3>User Input</h3>
+            <audio id="thefile"type="audio/mpeg"></audio>
+            <button id="btn-4" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="vol-4" min="0" max="2" value="1" step="0.01">
+          </div>
+        </div>
+      </div>
       <button id="modal-btn" class="modal-button">
         <h3>directions</h3>
       </button>
@@ -37,10 +54,7 @@
         </div>
       </div>
       
-      <label for="thefile" class="file"> <h3>nas sux - upload</h3>
-        <input type="file" id="thefile" accept="audio/*" />
-        <audio id="audio"></audio>
-      </label>
+
       <div class="track-wrapper" id="nas-tracks">
         <div class="track-buttons-container">
           <div class="track">
@@ -66,14 +80,6 @@
               <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
             </button>
             <input type="range" id="vol-3" min="0" max="2" value="1" step="0.01">
-          </div>
-          <div class="track">
-            <h3>User Input</h3>
-            <audio id="thefile" src="./src/assets/10 Nas - It Ain't Hard To Tell.mp3" type="audio/mpeg"></audio>
-            <button id="btn-4" data-playing="false" role="switch" aria-checked="false">
-              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
-            </button>
-            <input type="range" id="vol-4" min="0" max="2" value="1" step="0.01">
           </div>
         </div>
       </div>

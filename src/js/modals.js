@@ -7,7 +7,7 @@ const loveNasModal = document.getElementById('love-nas-modal');
 const hateNasModal = document.getElementById('hate-nas-modal');
 const closeLoveBtn = document.getElementById('close-love-nas');
 const closeHateBtn = document.getElementById('close-hate-nas');
-const uploadBtn = document.getElementById('thefile');
+// const uploadBtn = document.getElementById('thefile');
 const nasTracks = document.getElementById('nas-tracks');
 
 modalButton.addEventListener('click', openDirectionsModal);
@@ -48,9 +48,9 @@ function closeHateModal() {
   hateNasModal.style.display = 'none';
 }
 
-uploadBtn.addEventListener('click', hideNasTracks);
+// uploadBtn.addEventListener('click', hideNasTracks);
 
-function hideNasTracks() {
-  nasTracks.style.display = 'none';
-}
+// function hideNasTracks() {
+//   nasTracks.style.display = 'none';
+// }
 
