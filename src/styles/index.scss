@@ -214,27 +214,46 @@ button h3 {
 .directions-modal {
   width: 400px;
   height: 400px;
-  background-color: yellow;
+  background-color: #00C6D9;
   border-radius: 5px;
   display: none;
   position: absolute;
+  z-index: 1010;
+  align-items: center;
+  justify-content: center;
 }
 
 #directions-close:hover {
   cursor: pointer;
 }
 
-.love-nas-modal {
-  width: 200px;
-  height: 200px;
-  background-color: red;
+.genres-modal {
+  width: 400px;
+  height: 400px;
+  background-color: #00C6D9;
   border-radius: 5px;
   display: none;
   position: absolute;
+  z-index: 1010;
+  align-items: center;
+  justify-content: center;
 }
 
-#close-love-nas:hover {
+#close-genres:hover {
   cursor: pointer;
+  
+}
+
+#close-button {
+  width: 20px;
+  height: 15px;
+  margin: 10px;
+}
+
+#close-genres {
+  width: 20px;
+  height: 15px;
+  margin: 10px;
 }
 
 .hate-nas-modal {
@@ -244,6 +263,7 @@ button h3 {
   border-radius: 5px;
   display: none;
   position: absolute;
+  z-index: 1010;
 }
 
 #close-hate-nas:hover {
@@ -255,8 +275,8 @@ button h3 {
     width: 200px;
     justify-content: center;
     top: 10px;
-    height: 140px;
-    background-color: #516D73;
+    height: 85px;
+    background-color: #00C6D9;
     display: flex;
     align-items: center;
     opacity: 0.8;
@@ -285,4 +305,178 @@ button, input {
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
+}
+
+.modal-overlay {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 10, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+#nas-tracks {
+    position: absolute;
+    width: 700px;
+    bottom: 20px;
+    height: 100px;
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+    border-radius: 5px;
+    display: none;
+}
+
+
+#country-tracks {
+    position: absolute;
+    width: 700px;
+    bottom: 20px;
+    height: 100px;
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+    border-radius: 5px;
+    display: none;
+}
+
+#emo-tracks {
+    position: absolute;
+    width: 700px;
+    bottom: 20px;
+    height: 100px;
+    background-color: pink;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+    border-radius: 5px;
+    display: none;
+}
+
+#nyc-tracks {
+    position: absolute;
+    width: 700px;
+    bottom: 20px;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+    border-radius: 5px;
+    display: none;
+}
+
+#alt-tracks {
+    position: absolute;
+    width: 700px;
+    bottom: 20px;
+    height: 100px;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+    border-radius: 5px;
+    display: none;
+}
+
+#french-tracks {
+    position: absolute;
+    width: 700px;
+    bottom: 20px;
+    height: 100px;
+    background-color: pink;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+    border-radius: 5px;
+    display: none;
+}
+
+#genres-btn-home {
+  position: absolute;
+  justify-items: baseline;
+  display: flex;
+  align-self: baseline;
+  top: 60px;
+  left: 20px;
+  width: 150px;
+  height: 30px;
+  opacity: .8;
+}
+
+.genres-content {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+}
+
+.genre-modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+#genres-btn-home {
+  display: none;
+}
+
+.genre-close-div {
+  align-self: flex-end;
+}
+
+.genre-buttons {
+  margin: 10px;
+}
+
+.genre-text {
+  width: 85%;
+  height: 100px;
+  margin: 0 auto;
+  border-radius: 5px;
+  outline: none;
+  padding: 0;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.text-directions-wrapper {
+  width: 85%;
+  height: 100px;
+  margin: 0 auto;
+  border-radius: 5px;
+  outline: none;
+  padding: 0;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.directions-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.user-track h3 {
+  margin: 0;
+  margin-top: 10px;
+  font-size: 14px;
 }

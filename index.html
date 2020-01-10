@@ -13,14 +13,14 @@
   <body>
     <div class="container" id="container">
       <label for="thefile" id="nas-sux-btn" class="file">
-        <h3>nas sux - upload</h3>
+        <h3>your music sux</h3>
         <input type="file" id="thefile" accept="audio/*" />
         <audio id="audio"></audio>
       </label>
       <div class="user-wrapper" id="user-tracks">
         <div class="user-track-buttons-container">
           <div class="user-track">
-            <h3>User Input</h3>
+            <h3>my music > merkAMP</h3>
             <audio id="thefile"type="audio/mpeg"></audio>
             <button id="btn-4" data-playing="false" role="switch" aria-checked="false">
               <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
@@ -32,28 +32,52 @@
       <button id="modal-btn" class="modal-button">
         <h3>directions</h3>
       </button>
-      <div class="directions-modal" id="directions-modal">
-        <div class="directions-modal-content">
-          <span id="directions-close">&times;</span>
-          <button id="love-nas"><h3>love nas</h3></button>
-          <button id="hate-nas"><h3>hate nas</h3></button>
+      <div class="modal-overlay" id="modal-overlay">
+        <div class="directions-modal" id="directions-modal">
+            <div class="directions-content">
+            <div class="genre-close-div">
+              <button id="close-button">
+                <h3 id="close-genre-button">X</h3>
+              </button>
+            </div>
+            <div class="text-directions-wrapper">
+              <h3>click on genres, to check out some tunes. </br> if you hate all of my music, click on 'your music sux' to upload your own</h3>
+            </div>
+            <div class="directions-modal-content">
+              <button id="genres-btn"><h3>genres</h3></button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="love-nas-modal" id="love-nas-modal">
-        <div class="love-nas-content">
-          <span id="close-love-nas">&times;</span>
-            <h3>choose a track sit back enjoy</h3>
+        <div class="genres-modal" id="genres-modal">
+          <div class="genres-content">
+            <div class="genre-close-div">
+              <button id="close-genres"><h3 id="close-genre-button">X</h3></button>
+            </div>
+            <div class="genre-text">
+              <h3>choose a genre sit back enjoy</h3>
+            </div>
+            
+            <div class="genre-modal-wrapper">
+              <button class="genre-buttons" id="genre-emo"><h3>emo</h3></button>
+              <button class="genre-buttons" id="genre-country"><h3>yeehaw</h3></button>
+              <button class="genre-buttons" id="genre-nyc"><h3>nyc rap</h3></button>
+              <button class="genre-buttons" id="genre-alt"><h3>alt</h3></button>
+              <button class="genre-buttons" id="genre-french"><h3>french</h3></button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="hate-nas-modal" id="hate-nas-modal">
-        <div class="hate-nas-content">
-          <span id="close-hate-nas">&times;</span>
-          <h3>click on nas sux, upload your own track, enjoy</h3>
+        <div class="hate-nas-modal" id="hate-nas-modal">
+          <div class="hate-nas-content">
+            <span id="close-hate-nas">&times;</span>
+            <h3>click on nas sux, upload your own track, enjoy</h3>
+          </div>
         </div>
       </div>
-      
+      <button id="genres-btn-home">
+        <h3>genres</h3>
+      </button>
 
       <div class="track-wrapper" id="nas-tracks">
         <div class="track-buttons-container">
@@ -83,7 +107,166 @@
           </div>
         </div>
       </div>
+
+
+
+      <div class="track-wrapper" id="country-tracks">
+        <div class="track-buttons-container">
+          <div class="track">
+            <h3>cruise</h3>
+            <audio id="cruise" src="./src/assets/Florida Georgia Line - Cruise.mp3" type="audio/mpeg"></audio>
+            <button id="country-btn-1" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="country-vol-1" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>drunk on a plane</h3>
+            <audio id="drunk" src="./src/assets/Dierks Bentley - Drunk On A Plane (Official Music Video).mp3" type="audio/mpeg"></audio>
+            <button id="country-btn-2" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="country-vol-2" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>jolene</h3>
+            <audio id="jolene" src="./src/assets/Dolly Parton - Jolene (Audio).mp3" type="audio/mpeg"></audio>
+            <button id="country-btn-3" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="country-vol-3" min="0" max="2" value="1" step="0.01">
+          </div>
+        </div>
+      </div>
+
+      <div class="track-wrapper" id="emo-tracks">
+        <div class="track-buttons-container">
+          <div class="track">
+            <h3>jesus christ</h3>
+            <audio id="jesus" src="./src/assets/Jesus Christ - Brand New.mp3" type="audio/mpeg"></audio>
+            <button id="emo-btn-1" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="emo-vol-1" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>cute without the e*</h3>
+            <audio id="cute" src="./src/assets/Taking Back Sunday - Cute Without the _E_ (Cut From the Team) [Official Video].mp3"
+              type="audio/mpeg"></audio>
+            <button id="emo-btn-2" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="emo-vol-2" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>makedamnsure</h3>
+            <audio id="makedamnsure" src="./src/assets/Taking Back Sunday - MakeDamnSure.mp3" type="audio/mpeg"></audio>
+            <button id="emo-btn-3" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="emo-vol-3" min="0" max="2" value="1" step="0.01">
+          </div>
+        </div>
+      </div>
+
+      <div class="track-wrapper" id="nyc-tracks">
+        <div class="track-buttons-container">
+          <div class="track">
+            <h3>i really mean it</h3>
+            <audio id="dipset" src="./src/assets/Diplomats- I Really Mean It.mp3" type="audio/mpeg"></audio>
+            <button id="nyc-btn-1" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="nyc-vol-1" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>the message</h3>
+            <audio id="message"
+              src="./src/assets/Nas - The Message.mp3"
+              type="audio/mpeg"></audio>
+            <button id="nyc-btn-2" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="nyc-vol-2" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>off the books</h3>
+            <audio id="books" src="./src/assets/The Beatnuts feat. Big Pun & Cuban Link - Off The Books _ _Best Quality_ (1997).mp3" type="audio/mpeg"></audio>
+            <button id="nyc-btn-3" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="nyc-vol-3" min="0" max="2" value="1" step="0.01">
+          </div>
+        </div>
+      </div>
+
+      <div class="track-wrapper" id="alt-tracks">
+        <div class="track-buttons-container">
+          <div class="track">
+            <h3>confide in me</h3>
+            <audio id="tame" src="./src/assets/Confide In Me.mp3" type="audio/mpeg"></audio>
+            <button id="alt-btn-1" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="alt-vol-1" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>when i'm small</h3>
+            <audio id="phantogram" src="./src/assets/Phantogram When I'm Small.mp3" type="audio/mpeg"></audio>
+            <button id="alt-btn-2" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="alt-vol-2" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>do i wanna know</h3>
+            <audio id="monkeys"
+              src="./src/assets/Arctic Monkeys - Do I Wanna Know (Official Video).mp3"
+              type="audio/mpeg"></audio>
+            <button id="alt-btn-3" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="alt-vol-3" min="0" max="2" value="1" step="0.01">
+          </div>
+        </div>
+      </div>
+
+      <div class="track-wrapper" id="french-tracks">
+        <div class="track-buttons-container">
+          <div class="track">
+            <h3>martin</h3>
+            <audio id="martin" src="./src/assets/Nekfeu - Martin Eden.mp3" type="audio/mpeg"></audio>
+            <button id="french-btn-1" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="french-vol-1" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>canopée</h3>
+            <audio id="polo" src="./src/assets/POLO & PAN - Canopée (audio).mp3" type="audio/mpeg"></audio>
+            <button id="french-btn-2" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="french-vol-2" min="0" max="2" value="1" step="0.01">
+          </div>
+          <div class="track">
+            <h3>nuit 17 à 52</h3>
+            <audio id="christine" src="./src/assets/Christine and The Queens - Nuit 17 à 52 (Album Version).mp3"
+              type="audio/mpeg"></audio>
+            <button id="french-btn-3" data-playing="false" role="switch" aria-checked="false">
+              <img src="./src/assets/outline_play_arrow_black_18dp.png" alt="">
+            </button>
+            <input type="range" id="french-vol-3" min="0" max="2" value="1" step="0.01">
+          </div>
+        </div>
+      </div>
+
     </div>
+
+    
+
+
+
     <script src="./dist/main.js"></script>
   </body>
 </html>
