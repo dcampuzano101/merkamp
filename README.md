@@ -1,6 +1,7 @@
 ## Background of MerkAMP!
 
 MerkAMP is an audio player that  displays **visualization** of selected tracks. A user is prompted with directions on using **merkAMP**, then prompted to select a track, finally sit back and enjoy the show.
+![merkamp-gif](https://i.imgur.com/3XI927E.gif)
 
 
 ## Functionality  & MVP
